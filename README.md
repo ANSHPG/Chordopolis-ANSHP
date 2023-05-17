@@ -1,5 +1,4 @@
 # Chordopolis-ANSHP
-This repository contains a concept for a Piano Web embed created by Anshuman, designed to be integrated into BTS website. The app is built using HTML, CSS, and JavaScript, providing an interactive and engaging experience for website visitors.
 
 Piano Web App - Chordopolis
 
