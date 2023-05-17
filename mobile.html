@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pianoMobile</title>
+    <!-- link to google-fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- link to google-fonts -->
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding-top: 36vh;
+            padding-bottom: 5vh;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            /* if you take 100% of height of the screen then the main content of the body will always be alligned in the center */
+            background-color: rgba(0, 0, 0, 1);
+            /* height: 70%; */
+            /* transform: rotate(90deg); */
+            /* transform-origin:bottom left; */
+            /* overflow: hidden; */
+        }
+
+        .piano-container {
+            position: absolute;
+            transform: rotate(90deg);
+            margin-left: 50vh;
+        }
+
+        .piano {
+            height: 43vh;
+            /* top left bottom right  */
+            padding: 2vh 3.8vh 5vh 3.8vh;
+            background-color: rgba(27, 27, 27, 1);
+            border-radius: 3.8vh 3.8vh 3.8vh 3.8vh;
+            margin-top: 33vh;
+            box-shadow: -1.5vh 1.6vh 0vh 1.4vh rgb(135, 57, 249), 0vh 0vh 2.4vh black;
+        }
+
+        .container {
+            background-color: rgb(22, 22, 22);
+            margin-top: 1.3vh;
+            padding-bottom: 0.4vh;
+            padding-top: 0.5vh;
+            padding: 0.4vh;
+            border-radius: 1.3vh;
+        }
+
+        /*
+  position-> 
+  relative: element relative to its normal/actual position
+  absolute: element relative to its first parent
+  fixed:    element relative to the window , and its remain fixed
+  sticky:   element relative to the first parent, and its remain fixed
+*/
+
+        .keys {
+            position: relative;
+        }
+
+        /* here the parent div is piano[gray-color] so the padding is set in it*/
+        .black-keys {
+            position: relative;
+            display: flex;
+            margin-top: 0.25vh;
+        }
+
+        .black-key {
+            width: 5.2vh;
+            height: 20.2vh;
+            border-radius: 0 0 0.5vh 0.5vh;
+            box-sizing: border-box;
+            position: absolute;
+            border: 0.4vh solid rgba(27, 27, 27, 1);
+            background-color: rgb(135, 57, 249);
+            box-shadow: -0.5vh 0.4vh rgb(27, 10, 53);
+            margin-top: -0.25vh;
+            cursor: pointer;
+        }
+
+        .black-key:active {
+            background-color: rgb(123, 42, 244);
+            box-shadow: none;
+        }
+
+        .white-keys {
+            display: flex;
+            margin-top: 0px;
+            margin-bottom: 0.25vh;
+            /* margin-left: 2px; */
+        }
+
+        .white-key {
+            width: 8.6vh;
+            height: 35.36vh;
+            /* 280px */
+            border-radius: 0vh 0vh 1.3vh 1.3vh;
+            border: 2px solid rgba(27, 27, 27, 1);
+            box-sizing: border-box;
+            background-color: rgb(54, 54, 54);
+            margin-right: 0.13vh;
+            box-shadow: -0.25vh 0.25vh 0.4vh rgb(5, 5, 5);
+            padding-top: 30vh;
+            padding-left: 2.9vh;
+            cursor: pointer;
+        }
+
+        .white-key:active {
+            background-color: rgb(135, 57, 249);
+            height: 34.85vh;
+            box-shadow: none;
+        }
+
+        .white-key:active .note {
+            color: white;
+        }
+
+        /* this specified data was taken from the free-code-camp */
+        .black-key:nth-child(1) {
+            left: 6.188vh;
+        }
+
+        .black-key:nth-child(2) {
+            left: 14.90vh;
+        }
+
+        .black-key:nth-child(3) {
+            left: 32.33vh;
+        }
+
+        .black-key:nth-child(4) {
+            left: 40.92vh;
+        }
+
+        .black-key:nth-child(5) {
+            left: 49.76vh;
+        }
+
+        .black-key:nth-child(6) {
+            left: 66.94vh;
+        }
+
+        .black-key:nth-child(7) {
+            left: 75.65vh;
+        }
+
+        .black-key:nth-child(8) {
+            left: 84.62vh;
+        }
+
+        .black-key:nth-child(9) {
+            left: 101.79vh;
+        }
+
+        .black-key:nth-child(10) {
+            left: 110.76vh;
+        }
+
+        .note {
+            color: rgb(119, 76, 185);
+            font-size: 3.3vh;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .play {
+            font-size: 17px;
+            padding: 5px;
+            font-weight: 600;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            background-color: rgb(119, 76, 185);
+            display: none;
+        }
+
+        .head {
+            display: flex;
+            align-items: center;
+        }
+
+        .app-name {
+            color: rgb(119, 76, 185);
+            font-size: 3vh;
+            font-family: 'Manrope', sans-serif;
+            margin-right: 0.63vh;
+            font-weight: 600;
+            align-items: center;
+            margin-right: 1.51vh;
+        }
+
+        .app-author {
+            color: rgba(72, 72, 72, 1);
+            font-size: 1.76vh;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            margin-right: 7.07vh;
+        }
+
+        .volume-declare {
+            color: rgb(119, 76, 185);
+            font-family: 'Manrope', sans-serif;
+            font-size: 2.5vh;
+            font-weight: 500;
+            margin-right: 0.75vh;
+            margin-top: -0.50vh;
+        }
+
+        .volume-slider {
+            accent-color: rgba(119, 76, 185, 1);
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, rgba(119, 76, 185, 1)50%, rgba(54, 54, 54, 1) 50%);
+            height: 0.63vh;
+            border-radius: 0.63vh;
+            align-items: center;
+        }
+
+        .back {
+            margin-top: 6.3vh;
+            /* 10vh */
+            margin-left: 0vw;
+            display: none;
+        }
+
+        .back-text {
+            color: rgba(119, 76, 185, 1);
+            font-size: 190px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 300;
+            margin-top: 0px;
+        }
+
+        .back-text-1 {
+            color: rgba(119, 76, 185, 1);
+            font-size: 40px;
+            font-family: 'Manrope', sans-serif;
+            margin-bottom: 2px;
+            margin-top: -20px;
+            /* display: none; */
+        }
+
+        .white-text {
+            color: #b7b1b1;
+            font-weight: 500;
+        }
+
+        /* album */
+        .album {
+            height: 6.31vh;
+            display: flex;
+            flex-direction: row;
+            margin-top: -0.63vh;
+            margin-left: 10.10vh;
+            padding: 1.01vh;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 1.26vh;
+        }
+
+        .album-cover {
+            height: 6.31vh;
+            border: none;
+            border-radius: 0.75vh;
+        }
+
+        .album-information {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            align-items: center;
+            color: white;
+            margin-top: -1.51vh;
+            margin-left: 1.26vh;
+        }
+
+        .album-name {
+            font-size: 1.89vh;
+            font-family: 'Manrope', sans-serif;
+            color: rgba(119, 76, 185, 1);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .album-artist {
+            font-size: 1.51vh;
+            font-family: 'Manrope', sans-serif;
+            color: #b7b1b1;
+            font-weight: 500;
+            margin-top: -0.37vh;
+            margin-left: 0.25vh;
+        }
+
+        .album-play {
+            margin-left: 1.89vh;
+            margin-top: 0.5vh;
+            height: 5.68vh;
+            filter: invert(39%) sepia(62%) saturate(875%) hue-rotate(227deg) brightness(79%) contrast(89%);
+            cursor: pointer;
+        }
+
+        .github {
+            margin-left: 9.09vh;
+            margin-top: 0vh;
+            height: 5.05vh;
+            filter: invert(39%) sepia(62%) saturate(875%) hue-rotate(227deg) brightness(79%) contrast(89%);
+        }
+
+
+        /* Animations */
+        .back-text {
+            /* position: relative; */
+            animation-name: back-text-animation;
+            animation-duration: 4s;
+            animation-fill-mode: forward;
+            animation-timing-function: ease-in;
+        }
+
+        @keyframes back-text-animation {
+            from {
+                opacity: 10%;
+                word-spacing: 30px;
+            }
+
+            to {
+                opacity: 100%;
+                word-spacing: 0px;
+            }
+        }
+
+        .piano-container {
+            animation-name: piano-animation;
+            animation-duration: 4s;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-in;
+        }
+
+        @keyframes piano-animation {
+            from {
+                margin-top: 7vh;
+                opacity: 100%;
+            }
+
+            to {
+                margin-top: -5vh;
+                opacity: 100%;
+            }
+        }
+
+        .back-text-1 {
+            position: absolute;
+            animation-name: back-text-1-animation;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes back-text-1-animation {
+            from {
+                opacity: 40%;
+            }
+
+            to {
+                opacity: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="back">
+        <span class="back-text-1">Introducing <span class="white-text">concept</span> of piano <span
+                class="white-text">&lt;embed&gt;</span> in websites.</span>
+
+        <br>
+        <span class="back-text">BTS X ANSHP</span>
+    </div>
+    <div class="piano-container">
+        <div class="piano">
+            <button class="play">play</button>
+            <div class="head">
+                <span class="app-name">Chordopolis</span> <span class="app-author">by Anshuman Pattnaik</span>
+                <span class="volume-declare">volume</span>
+                <input class="volume-slider" type="range">
+                <div class="album">
+                    <img src="resources/dynamite-bts-dark.jpg" alt="Album-cover" class="album-cover">
+                    <div class="album-information">
+                        <p class="album-name">Dynamite</p>
+                        <span class="album-artist">BTS</span>
+                    </div>
+                    <img class="album-play" src="icons/speaker-play.svg" alt="">
+                </div>
+                <a href="" target="_blank"><img class="github" src="icons/github.svg" alt="">
+            </div></a>
+            <div class="container">
+                <div class="black-keys">
+                    <!-- 10 black keys -->
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                    <div class="key black-key"></div>
+                </div>
+
+                <div class="white-keys">
+                    <!-- 14 white keys -->
+                    <div class="key white-key"><span class="note">A</span></div>
+                    <div class="key white-key"><span class="note">B</span></div>
+                    <div class="key white-key"><span class="note">C</span></div>
+                    <div class="key white-key"><span class="note">D</span></div>
+                    <div class="key white-key"><span class="note">E</span></div>
+                    <div class="key white-key"><span class="note">F</span></div>
+                    <div class="key white-key"><span class="note">G</span></div>
+                    <div class="key white-key"><span class="note">A</span></div>
+                    <div class="key white-key"><span class="note">B</span></div>
+                    <div class="key white-key"><span class="note">C</span></div>
+                    <div class="key white-key"><span class="note">D</span></div>
+                    <div class="key white-key"><span class="note">E</span></div>
+                    <div class="key white-key"><span class="note">F</span></div>
+                    <div class="key white-key"><span class="note">G</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://kit.fontawesome.com/7c1fe3366f.js" crossorigin="anonymous"></script>
+    <script>
+        const pianoKeys = document.querySelectorAll('.key');
+        // we have taken the adress of all elements associated with class '.key' then store it as array in pianoKeys
+        const volume_slider = document.querySelector('.volume-slider');
+        const speaker_status = document.querySelector('.album-play');
+
+        // to control the piano keys
+        let volume_value = 0.5;
+        function playSound(newUrl) {
+            console.log(newUrl);
+            music = new Audio(newUrl);
+            music.volume = volume_value;
+            music.play();
+        }
+
+        pianoKeys.forEach((pianoKey, i) => {
+            const newUrl = 'assests/sounds-piano/' + (i + 1) + '.mp3';
+            pianoKey.addEventListener('click', () => playSound(newUrl));
+        })
+
+        // to control the volume-slider
+        const handleVolume = (e) => {
+            let num2 = e.target.value;
+            console.log(num2);
+            volume_value = num2 / 100;
+            album_music.volume = volume_value;
+
+            console.log(volume_value);
+            var slider_color = 'linear-gradient(90deg ,rgba(119, 76, 185,1)' + num2 + '% ,rgba(54, 54, 54,1)' + num2 + '% )';
+            volume_slider.style.background = slider_color;
+
+        }
+        volume_slider.addEventListener("input", handleVolume);
+
+        // to control the album-song
+        album_music = new Audio("assests/album/dynamite-bts.mp3");
+        let speaker_logic = 0;
+        function speaker() {
+            speaker_logic = speaker_logic + 1;
+            let speakerReminder = speaker_logic % 2;
+
+            console.log(speakerReminder);
+            if (speakerReminder == 1) {
+                speaker_status.src = "icons/speaker-pause.svg";
+                album_music.play();
+                console.log("music is palying!");
+            }
+            else {
+                speaker_status.src = "icons/speaker-play.svg";
+                album_music.pause();
+                console.log("music is paused!");
+            }
+
+        }
+        speaker_status.addEventListener('click', () => speaker());
+
+
+    </script>
+</body>
+
+</html>
