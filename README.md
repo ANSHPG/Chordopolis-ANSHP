@@ -2,6 +2,8 @@
 
 Piano Web App - Chordopolis
 
+https://github.com/ANSHPG/Chordopolis-ANSHP/assets/132222062/1ca2e7ae-b619-4dcb-86f9-8f3aa5eebe18
+
 This repository contains a concept for a Piano Web App developed by Anshuman Pattnaik. The app is designed to enhance the interaction between music websites and end users by providing a fully functional virtual piano. Built using HTML, CSS, and JavaScript, this concept offers an immersive musical experience for visitors.
 
 Features:
@@ -24,3 +26,8 @@ Contributions to this repository are welcomed and encouraged. If you have any id
 Please note that this concept is provided as-is and does not come with any warranties or guarantees. The code is available for public use, but it is recommended to thoroughly test and customize it according to your specific needs.
 
 Enjoy enhancing the interaction with your website visitors using the Piano Web App concept by Anshuman Pattnaik!
+
+
+
+
+
